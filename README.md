@@ -36,6 +36,23 @@ file-management-api/
 └── images
 
 
+## Results
+  Get list of all files
+   ![get all files list](./images/Get_lists_of_file.png)
+
+  ### Delete
+  ### When file doesn't exist
+   ![Delete if file not exist](./images/delete%20if%20file%20not%20found.png)
+      
+  ### When file exist
+   ![Delete existing file](./images/Deleted%20File.png)
+   
+  ### Upload File
+   ![upload file](./images/uploadfile.png)
+     
+  ### Search File 
+  ![upload file](./images/Search%20File.png)
+
 ## Dependencies
 
 - **Express.js**: Fast, unopinionated, minimalist web framework for Node.js.
