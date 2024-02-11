@@ -27,9 +27,18 @@ exports.uploadFile = async (file) => {
 
 exports.deleteFile = async (fileName) => {
   const filePath = path.join(FILE_STORAGE_PATH, fileName);
-  await fs.promises.unlink(filePath);
-  // Delete file details from database or perform other operations
+  try {
+    await fs.promises.unlink(filePath);
+    return true; // File was successfully deleted
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return false; // File not found
+    } else {
+      throw error; // Re-throw other errors
+    }
+  }
 };
+
 
 exports.searchFiles = (fileName, cb) => {
   fs.readdir(FILE_STORAGE_PATH, (err, files) => {

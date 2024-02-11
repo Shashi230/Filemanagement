@@ -20,16 +20,22 @@ exports.uploadFile = async (req, res, next) => {
   };
   
 
-exports.deleteFile = async (req, res, next) => {
-  try {
-    const fileId = req.params.id;
-    await fileService.deleteFile(fileId);
-    res.status(204).json({ message: 'File deleted successfully' });
-  } catch (error) {
-    next(error);
-  }
-};
+  exports.deleteFile = async (req, res, next) => {
+    try {
+      const fileId = req.params.id;
+      const deleted = await fileService.deleteFile(fileId);
+      
+      if (!deleted) {
+        return res.status(404).json({ message: 'File not found' });
+      }
+  
+      res.status(200).json({ message: 'File deleted successfully' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
+  
 exports.searchFiles = async (req, res, next) => {
   try {
     const { fileName } = req.query;    
