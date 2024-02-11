@@ -12,12 +12,8 @@ exports.listFiles = async (req, res, next) => {
 exports.uploadFile = async (req, res, next) => {
     try {
       const file = req.file;
-      const category = req.body.category; // Retrieve the category from the request body
-      if (!category) {
-        return res.status(400).json({ message: 'Category is required' });
-      }
-      await fileService.uploadFile(file, category); // Pass the category to the uploadFile function in fileService
-      res.sendStatus(201);
+      await fileService.uploadFile(file); // Pass the category to the uploadFile function in fileService
+      res.status(201).json({ message: 'File uploaded successfully' });
     } catch (error) {
       next(error);
     }
@@ -28,7 +24,26 @@ exports.deleteFile = async (req, res, next) => {
   try {
     const fileId = req.params.id;
     await fileService.deleteFile(fileId);
-    res.sendStatus(204);
+    res.status(204).json({ message: 'File deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.searchFiles = async (req, res, next) => {
+  try {
+    const { fileName } = req.query;    
+    // Wrap the callback-based function in a Promise
+    const files = await new Promise((resolve, reject) => {
+      fileService.searchFiles(fileName, (err, files) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(files);
+        }
+      });
+    });
+    res.status(200).json(files);
   } catch (error) {
     next(error);
   }
