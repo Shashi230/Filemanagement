@@ -47,10 +47,22 @@ To generate a JWT token, follow these steps:
 
 1. Go to [jwt.io](https://jwt.io/).
 2. Enter your secret key in the "Verify Signature" section. For example, use "myKey" as the secret key.
-3. Enter the payload data you want to encode as a JSON object in the "Payload" section. For example:
 
-```json
-{
-  "userId": "123456789",
-  "username": "example_user"
-}
+# Using JWT Token for Authentication
+
+Once you've entered the payload data and secret key, the website will generate a JWT token for you.
+
+## How to Use JWT Token
+
+To use the JWT token for authentication in the API:
+
+1. Include the generated JWT token in the Authorization header of your HTTP requests.
+
+   **Example:**
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkiLCJ1c2VybmFtZSI6ImV4YW1wbGVfdXNlciJ9.C0aZU9tT0TAvzVoKZzuk1ix1rD7_RzbfzCY8HtY-eBo
+
+2. The server will verify the JWT token using the provided secret key (e.g., "myKey") and grant access to the protected routes if the token is valid.
+
+## Secret Key
+
+For this project, I am using the secret key "myKey".
